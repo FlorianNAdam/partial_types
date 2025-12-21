@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.mypy_cache
+
+# Virtual environments
+.envrc
+.venv
+.devenv
+.direnv
+
+# Nix
+result
+.pre-commit-config.yaml
+
+# Private !!!
+.envrc.private
+.env.private
