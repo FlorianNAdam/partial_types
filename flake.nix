@@ -28,29 +28,32 @@
         let
           partial-types = import ./default.nix { inherit pkgs; };
 
-          mypy-python = pkgs.python3.withPackages (
-            ps: with ps; [
-              mypy
-              pydantic
-              pytest
-            ]
-          );
+          custom-mypy =
+            let
+              python = pkgs.python3.withPackages (
+                ps: with ps; [
+                  mypy
+                  pydantic
+                  pytest
+                  partial-types
+                ]
+              );
+            in
+            pkgs.stdenv.mkDerivation {
+              pname = "custom-mypy";
+              version = pkgs.mypy.version;
 
-          custom-mypy = pkgs.stdenv.mkDerivation {
-            pname = "custom-mypy";
-            version = pkgs.mypy.version;
+              buildInputs = [
+                python
+              ];
 
-            buildInputs = [
-              mypy-python
-            ];
+              phases = [ "installPhase" ];
 
-            phases = [ "installPhase" ];
-
-            installPhase = ''
-              mkdir -p $out/bin
-              ln -s ${mypy-python}/bin/mypy $out/bin/custom-mypy
-            '';
-          };
+              installPhase = ''
+                mkdir -p $out/bin
+                ln -s ${python}/bin/mypy $out/bin/custom-mypy
+              '';
+            };
         in
         {
           packages = {

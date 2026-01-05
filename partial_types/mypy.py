@@ -7,7 +7,9 @@ from mypy.types import AnyType, TypedDictType, TypeOfAny, UnionType, get_proper_
 
 class PydanticPartialPlugin(Plugin):
     def get_type_analyze_hook(self, fullname: str):
-        if fullname == "autodbg.partial.Partial":
+        if fullname == "partial_types.partial_pydantic.PartialBaseModel":
+            return None
+        elif fullname == "partial_types.partial_typeddict.PartialTypedDict":
             return partial_type_analyze_hook
         return None
 

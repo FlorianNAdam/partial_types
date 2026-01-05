@@ -109,5 +109,10 @@ def test_partial_typed_dict_preserves_optional():
 # Run all tests
 # ----------------------
 
+
+def func() -> Partial[Config]:
+    return Partial[Config]()
+
+
 if __name__ == "__main__":
     pytest.main([__file__])
