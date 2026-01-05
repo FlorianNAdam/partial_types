@@ -32,6 +32,7 @@
             ps: with ps; [
               mypy
               pydantic
+              pytest
             ]
           );
 
