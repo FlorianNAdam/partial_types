@@ -39,11 +39,11 @@
             pname = "custom-mypy";
             version = pkgs.mypy.version;
 
-            src = ./.;
-
             buildInputs = [
               mypy-python
             ];
+
+            phases = [ "installPhase" ];
 
             installPhase = ''
               mkdir -p $out/bin
